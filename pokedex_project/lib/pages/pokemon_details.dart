@@ -39,7 +39,92 @@ Widget _detailPokemon( BuildContext context, Map pokemon ){
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Column(
-
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topCenter,
+                child: Hero(
+                  tag: pokemon["img"],
+                  child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage( pokemon["img"] ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                pokemon["name"],
+                style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              Text(
+                "Height: ${pokemon["height"]}",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              Text(
+                "Weight: ${pokemon["weight"]}",
+              ),
+              Text(
+                "Type",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: pokemon["type"].map<Widget>((t) => FilterChip(
+                      backgroundColor: Colors.amber,
+                      label: Text(t),
+                      onSelected: (b) {}))
+                    .toList(),
+              ),
+              Text(
+                "Weaknesses",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: pokemon["weaknesses"].map<Widget>((t) => FilterChip(
+                    backgroundColor: Colors.red,
+                    label: Text(
+                      t,
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                    ),
+                    onSelected: (b) {}))
+                    .toList(),
+              ),
+              Text(
+                "Next Evolution",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: pokemon["next_evolution"] == null ? <Widget>[Text("Final Evolution")] : pokemon["next_evolution"].map<Widget>((n) => FilterChip(
+                  backgroundColor: Colors.green,
+                  label: Text(
+                    n["name"],
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onSelected: (b) {},
+                ))
+                    .toList(),
+              ),
+            ],
           ),
         ),
       ),
